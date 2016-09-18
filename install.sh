@@ -41,8 +41,8 @@ chmod +x /opt/airprint-generate.py
 # Add files
 cp -f /tmp/*.conf /etc/cups/
 cp -f /tmp/etc-pam.d-cups /etc/pam.d/cups
-cp -f /tmp/generate_cloudprint_config.py /opt/generate_cloudprint_config.py
-chmod +x /opt/generate_cloudprint_config.py
+# removed cp -f /tmp/generate_cloudprint_config.py /opt/generate_cloudprint_config.py
+# removed chmod +x /opt/generate_cloudprint_config.py
 mkdir -p /etc/cups/ssl
 
 # Add services
@@ -61,17 +61,18 @@ for f in *.conf ; do
   fi
 done
 
-# CloudPrint
-if [[ -n ${CLOUD_PRINT_EMAIL} ]]; then
-  # Create auth token
-  if [[ $(grep -c 'auth_token' '/config/cloudprint/Service State') -eq 0 ]]; then
-    cd /config/cloudprint
-    python /opt/generate_cloudprint_config.py
-  fi
-else
-  # Disable CloudPrint
-  rm -rf /etc/service/chrome
-fi
+## skip...
+## # CloudPrint
+## if [[ -n ${CLOUD_PRINT_EMAIL} ]]; then
+##   # Create auth token
+##   if [[ $(grep -c 'auth_token' '/config/cloudprint/Service State') -eq 0 ]]; then
+##     cd /config/cloudprint
+##     python /opt/generate_cloudprint_config.py
+##   fi
+## else
+##   # Disable CloudPrint
+##   rm -rf /etc/service/chrome
+## fi
 EOT
 chmod +x /etc/my_init.d/config.sh
 
@@ -88,19 +89,21 @@ exec /usr/sbin/cupsd -f -c /config/cups/cupsd.conf
 EOT
 chmod +x /etc/service/cups/run
 
-# Add Chrome/CloudPrint to runit
-mkdir /etc/service/chrome
-cat <<'EOT' >/etc/service/chrome/run
-#!/bin/bash
-
-# Fix a weird chrome error
-if [ ! -f "/usr/lib/libudev.so.0" ]; then
-  ln -s /lib/x86_64-linux-gnu/libudev.so.1.3.5 /usr/lib/libudev.so.0
-fi
-
-/opt/google/chrome/chrome --type=service --enable-cloud-print-proxy --no-service-autorun --noerrdialogs --user-data-dir=/config/cloudprint --enable-logging=stderr
-EOT
-chmod +x /etc/service/chrome/run
+## skip
+## # Add Chrome/CloudPrint to runit
+## mkdir /etc/service/chrome
+## cat <<'EOT' >/etc/service/chrome/run
+## #!/bin/bash
+## 
+## # Fix a weird chrome error
+## if [ ! -f "/usr/lib/libudev.so.0" ]; then
+##   ln -s /lib/x86_64-linux-gnu/libudev.so.1.3.5 /usr/lib/libudev.so.0
+## fi
+## 
+## skip
+## /opt/google/chrome/chrome --type=service --enable-cloud-print-proxy --no-service-autorun --noerrdialogs --user-data-dir=/config/cloudprint --enable-logging=stderr
+## EOT
+## chmod +x /etc/service/chrome/run
 
 # Add AirPrint to runit
 mkdir /etc/service/air_print
