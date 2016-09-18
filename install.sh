@@ -28,7 +28,7 @@ sed -i -e "s#http://[^\s]*archive.ubuntu[^\s]* #mirror://mirrors.ubuntu.com/mirr
 
 # Install Dependencies
 apt-get update -qq
-apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 google-chrome-stable python-cups inotify-tools
+apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools
 
 # Add AirPrint config tool
 curl -skL https://raw.github.com/tjfontaine/airprint-generate/master/airprint-generate.py /opt/airprint-generate.py -o /opt/airprint-generate.py
