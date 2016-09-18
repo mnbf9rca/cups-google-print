@@ -7,7 +7,7 @@ MAINTAINER mnbf9rca mnbf9rca@gmx.com
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" # GIT_REPO="gfjardim/nzbget-updates"
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" GIT_REPO="mnbf9rca/cups-google-print"
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
