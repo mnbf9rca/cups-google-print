@@ -76,9 +76,19 @@ RUN go get github.com/google/cloud-print-connector/...
 ADD * /tmp/
 RUN chmod +x /tmp/install.sh \
 && /tmp/install.sh \
-&& rm /tmp/install.sh \
-&& update-rc.d avahi-daemon defaults \
-&& mkdir -p /var/run/dbus
+&& rm /tmp/install.sh
+
+# Disbale some cups backend that are unusable within a container, Clean APT install files
+RUN update-rc.d avahi-daemon defaults \
+&& mkdir -p /var/run/dbus \
+&& mv /usr/lib/cups/backend/parallel /usr/lib/cups/backend-available/ \
+&& mv /usr/lib/cups/backend/serial /usr/lib/cups/backend-available/ \
+&& apt-get -y autoclean \
+&& apt-get -y autoremove \
+&& apt-get clean -y \
+&& rm -rf /var/lib/apt/lists/* \
+&& /var/cache/* /var/tmp/*
+
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
