@@ -48,6 +48,9 @@ libavahi-client3 \
 avahi-daemon \
 libsnmp30 \
 golang \
+build-essential \
+libcups2-dev \
+libavahi-client-dev \
 git \
 bzr
 
@@ -56,7 +59,8 @@ bzr
 
 ENV GOPATH=$HOME/go PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 
-RUN go version
+## uncomment if you want to check the version installed...
+## RUN go version
 
 
 ## install google print connector
