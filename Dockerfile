@@ -39,8 +39,6 @@ RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable \
 
 
 # Install Dependencies
-# RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools libcups2 libavahi-client3 avahi-daemon libsnmp30 build-essential libcups2-dev libavahi-client-dev git bzr
-
 
 RUN apt-get update -qq \
 && apt-get install -qy --force-yes \
