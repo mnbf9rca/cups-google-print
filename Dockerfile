@@ -7,7 +7,7 @@ MAINTAINER mnbf9rca mnbf9rca@gmx.com
 ##        ENVIRONMENTAL CONFIG         ##
 #########################################
 # Set correct environment variables
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" GIT_REPO="mnbf9rca/cups-google-print" DEBIAN_FRONTEND="noninteractive"
+ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" GIT_REPO="mnbf9rca/cups-google-print" DEBIAN_FRONTEND="noninteractive" TERM="xterm"
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -46,6 +46,7 @@ inotify-tools \
 libcups2 \
 libavahi-client3 \
 avahi-daemon \
+avahi-utils \
 libsnmp30 \
 golang \
 build-essential \
@@ -69,10 +70,11 @@ RUN go get github.com/google/cloud-print-connector/...
 
 ADD * /tmp/
 RUN chmod +x /tmp/install.sh && /tmp/install.sh && rm /tmp/install.sh
+RUN mkdir -p /var/run/dbus
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
 #########################################
 # Export volumes
-VOLUME /config /etc/cups/ /var/log/cups /var/spool/cups /var/cache/cups
+VOLUME /config /etc/cups/ /var/log/cups /var/spool/cups /var/cache/cups /var/run/dbus
 EXPOSE 631
