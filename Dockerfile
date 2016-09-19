@@ -13,6 +13,8 @@ ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8" GIT_
 CMD ["/sbin/my_init"]
 
 
+
+
 #########################################
 ##         RUN INSTALL SCRIPT          ##
 #########################################
@@ -32,6 +34,17 @@ RUN sed -i -e "s#http://[^\s]*archive.ubuntu[^\s]* #mirror://mirrors.ubuntu.com/
 # Install Dependencies
 RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools libcups2 libavahi-client3 avahi-daemon libsnmp30 build-essential libcups2-dev libavahi-client-dev git bzr
 
+
+## install go (https://golang.org/doc/install)
+RUN wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+
+RUN export GOPATH=$HOME/go && export PATH=$PATH:$GOPATH/bin && export PATH=$PATH:/usr/local/go/bin
+
+RUN go version
+
+
+## install google print connector
+RUN go get github.com/google/cloud-print-connector/...
 
 
 ADD * /tmp/

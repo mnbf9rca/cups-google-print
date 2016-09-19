@@ -30,21 +30,23 @@
 ## apt-get update -qq
 ## apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools libcups2 libavahi-client3 avahi-daemon libsnmp30 build-essential libcups2-dev libavahi-client-dev git bzr
 
-## install go (https://golang.org/doc/install)
-wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.7.1.linux-amd64.tar.gz
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:/usr/local/go/bin
+## ## install go (https://golang.org/doc/install)
+## wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz
+## tar -C /usr/local -xzf go1.7.1.linux-amd64.tar.gz
+## export GOPATH=$HOME/go
+## export PATH=$PATH:$GOPATH/bin
+## export PATH=$PATH:/usr/local/go/bin
+## 
+## go version
 
-go version
+
+## ## install google print connector
+## go get github.com/google/cloud-print-connector/...
 
 # Add AirPrint config tool
 curl -skL https://raw.github.com/tjfontaine/airprint-generate/master/airprint-generate.py /opt/airprint-generate.py -o /opt/airprint-generate.py
 chmod +x /opt/airprint-generate.py
 
-## install google print connector
-go get github.com/google/cloud-print-connector/...
 
 
 #########################################
