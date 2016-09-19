@@ -74,16 +74,16 @@ RUN go get github.com/google/cloud-print-connector/...
 
 
 ADD * /tmp/
-RUN chmod +x /tmp/install.sh \
+RUN chmod +x /tmp/*.sh \
 && /tmp/install.sh \
-&& rm /tmp/install.sh
+&& /tmp/make-avahi-autostart.sh
 
 # Disbale some cups backend that are unusable within a container, Clean install files
 RUN update-rc.d avahi-daemon defaults \
 && mkdir -p /var/run/dbus \
 && mv -f /usr/lib/cups/backend/parallel /usr/lib/cups/backend-available/ || true \
 && mv -f /usr/lib/cups/backend/serial /usr/lib/cups/backend-available/ || true \
-&& rm -rf /var/cache/* /var/tmp/* || true
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /tmp/ || true
 
 
 #########################################
