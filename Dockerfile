@@ -25,7 +25,7 @@ RUN rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_in
 
 # Repositories
 # RUN curl -skL http://www.bchemnet.com/suldr/suldr.gpg | apt-key add -
-RUN curl -SkL -o /tmp/suldr-keyring_1_all.deb http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_1_all.deb && dpkg -i /tmp/suldr-keyring_1_all.deb
+RUN curl -SkL -o- http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_1_all.deb && dpkg -i -
 RUN add-apt-repository "deb http://www.bchemnet.com/suldr/ debian extra"
 
 # Use mirrors
@@ -36,7 +36,7 @@ RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hp
 
 
 ## install go (https://golang.org/doc/install)
-RUN wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+RUN wget -nvO- https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 RUN export GOPATH=$HOME/go && export PATH=$PATH:$GOPATH/bin && export PATH=$PATH:/usr/local/go/bin
 
