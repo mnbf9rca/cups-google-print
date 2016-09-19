@@ -36,7 +36,7 @@ RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hp
 
 
 ## install go (https://golang.org/doc/install)
-RUN wget -nvO- https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+RUN wget -nv -O - https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 RUN export GOPATH=$HOME/go && export PATH=$PATH:$GOPATH/bin && export PATH=$PATH:/usr/local/go/bin
 
