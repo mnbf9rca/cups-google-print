@@ -35,25 +35,30 @@ RUN sed -i -e "s#http://[^\s]*archive.ubuntu[^\s]* #mirror://mirrors.ubuntu.com/
 # RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools libcups2 libavahi-client3 avahi-daemon libsnmp30 build-essential libcups2-dev libavahi-client-dev git bzr
 
 
-RUN apt-get update -qq && apt-get install -qy --force-yes \
-cups \
-cups-pdf \
-whois \
-hplip \
-suld-driver-4.01.17 \
-python-cups \
-inotify-tools \
-libcups2 \
-libavahi-client3 \
-avahi-daemon \
-avahi-utils \
-libsnmp30 \
-golang \
-build-essential \
-libcups2-dev \
-libavahi-client-dev \
-git \
-bzr
+RUN apt-get update -qq \
+&& apt-get install -qy --force-yes \
+ cups \
+ cups-pdf \
+ whois \
+ hplip \
+ suld-driver-4.01.17 \
+ python-cups \
+ inotify-tools \
+ libcups2 \
+ libavahi-client3 \
+ avahi-daemon \
+ avahi-utils \
+ libsnmp30 \
+ golang \
+ build-essential \
+ libcups2-dev \
+ libavahi-client-dev \
+ git \
+ bzr \
+&& apt-get -qq -y autoclean \
+&& apt-get -qq -y autoremove \
+&& apt-get -qq -y clean
+
 
 ## install go (https://golang.org/doc/install)
 ## RUN wget -nv -O - https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
@@ -69,8 +74,11 @@ RUN go get github.com/google/cloud-print-connector/...
 
 
 ADD * /tmp/
-RUN chmod +x /tmp/install.sh && /tmp/install.sh && rm /tmp/install.sh
-RUN mkdir -p /var/run/dbus
+RUN chmod +x /tmp/install.sh \
+&& /tmp/install.sh \
+&& rm /tmp/install.sh \
+&& update-rc.d avahi-daemon defaults \
+&& mkdir -p /var/run/dbus
 
 #########################################
 ##         EXPORTS AND VOLUMES         ##
