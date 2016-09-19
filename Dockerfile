@@ -22,7 +22,8 @@ RUN export DEBIAN_FRONTEND="noninteractive" && usermod -u 99 nobody && usermod -
 RUN rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Repositories
-RUN curl -skL http://www.bchemnet.com/suldr/suldr.gpg | apt-key add -
+# RUN curl -skL http://www.bchemnet.com/suldr/suldr.gpg | apt-key add -
+RUN curl -skL http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_1_all.deb | dpkg -i -
 RUN add-apt-repository "deb http://www.bchemnet.com/suldr/ debian extra"
 
 # Use mirrors
