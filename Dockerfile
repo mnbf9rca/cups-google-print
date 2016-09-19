@@ -25,13 +25,18 @@ RUN usermod -u 99 nobody \
 && chown -R nobody:users /home \
 && rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-# Repositories
+##  <<- removing Samsung printers
+## # Repositories
+## 
+## RUN curl -sSkL -o /tmp/suldr-keyring_1_all.deb http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_1_all.deb \
+## && dpkg -i /tmp/suldr-keyring_1_all.deb \
+## && add-apt-repository "deb http://www.bchemnet.com/suldr/ debian extra" \
+## && add-apt-repository ppa:ubuntu-lxc/lxd-stable \
+## && sed -i -e "s#http://[^\s]*archive.ubuntu[^\s]* #mirror://mirrors.ubuntu.com/mirrors.txt #g" /etc/apt/sources.list
 
-RUN curl -sSkL -o /tmp/suldr-keyring_1_all.deb http://www.bchemnet.com/suldr/pool/debian/extra/su/suldr-keyring_1_all.deb \
-&& dpkg -i /tmp/suldr-keyring_1_all.deb \
-&& add-apt-repository "deb http://www.bchemnet.com/suldr/ debian extra" \
-&& add-apt-repository ppa:ubuntu-lxc/lxd-stable \
+RUN add-apt-repository ppa:ubuntu-lxc/lxd-stable \
 && sed -i -e "s#http://[^\s]*archive.ubuntu[^\s]* #mirror://mirrors.ubuntu.com/mirrors.txt #g" /etc/apt/sources.list
+
 
 # Install Dependencies
 # RUN apt-get update -qq && apt-get install -qy --force-yes cups cups-pdf whois hplip suld-driver-4.01.17 python-cups inotify-tools libcups2 libavahi-client3 avahi-daemon libsnmp30 build-essential libcups2-dev libavahi-client-dev git bzr
@@ -43,7 +48,6 @@ RUN apt-get update -qq \
  cups-pdf \
  whois \
  hplip \
- suld-driver-4.01.17 \
  python-cups \
  inotify-tools \
  libcups2 \
@@ -81,12 +85,11 @@ RUN chmod +x /tmp/*.sh \
 && /tmp/make-avahi-autostart.sh \
 && /tmp/make-gcp-autostart.sh
 
-# Disbale some cups backend that are unusable within a container, Clean install files
+# Create var/run/dbus, Disbale some cups backend that are unusable within a container, Clean install files
 RUN mkdir -p /var/run/dbus \
 && mv -f /usr/lib/cups/backend/parallel /usr/lib/cups/backend-available/ || true \
 && mv -f /usr/lib/cups/backend/serial /usr/lib/cups/backend-available/ || true \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true \
-&& rm -f /tmp/*
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true
 
 
 #########################################
