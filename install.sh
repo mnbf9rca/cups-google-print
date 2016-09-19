@@ -18,9 +18,9 @@ rm -rf /etc/service/sshd /etc/service/cron /etc/service/syslog-ng /etc/my_init.d
 #########################################
 
 # Repositories
-curl -skL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+## curl -skL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 curl -skL http://www.bchemnet.com/suldr/suldr.gpg | apt-key add -
-add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
+## add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
 add-apt-repository "deb http://www.bchemnet.com/suldr/ debian extra"
 
 # Use mirrors
@@ -35,9 +35,15 @@ wget https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.7.1.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 
+go version
+
 # Add AirPrint config tool
 curl -skL https://raw.github.com/tjfontaine/airprint-generate/master/airprint-generate.py /opt/airprint-generate.py -o /opt/airprint-generate.py
 chmod +x /opt/airprint-generate.py
+
+## install google print connector
+go get github.com/google/cloud-print-connector/...
+
 
 #########################################
 ##  FILES, SERVICES AND CONFIGURATION  ##
