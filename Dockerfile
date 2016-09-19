@@ -47,7 +47,8 @@ libcups2 \
 libavahi-client3 \
 avahi-daemon \
 libsnmp30 \
-golang
+golang \
+git
 
 ## install go (https://golang.org/doc/install)
 ## RUN wget -nv -O - https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
