@@ -85,7 +85,8 @@ RUN chmod +x /tmp/*.sh \
 RUN mkdir -p /var/run/dbus \
 && mv -f /usr/lib/cups/backend/parallel /usr/lib/cups/backend-available/ || true \
 && mv -f /usr/lib/cups/backend/serial /usr/lib/cups/backend-available/ || true \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /tmp/ || true
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true \
+&& rm -f /tmp/*
 
 
 #########################################
