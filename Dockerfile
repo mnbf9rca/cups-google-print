@@ -78,7 +78,8 @@ RUN go get github.com/google/cloud-print-connector/...
 ADD * /tmp/
 RUN chmod +x /tmp/*.sh \
 && /tmp/install.sh \
-&& /tmp/make-avahi-autostart.sh
+&& /tmp/make-avahi-autostart.sh \
+&& /tmp/make-gcp-autostart.sh
 
 # Disbale some cups backend that are unusable within a container, Clean install files
 RUN mkdir -p /var/run/dbus \
