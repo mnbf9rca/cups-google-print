@@ -1,9 +1,9 @@
 # cups-google-print
-> Please log issues on GitHub, not here...
+> Please log issues on GitHub (https://github.com/mnbf9rca/cups-google-print), not here...
 
 Docker container with CUPS, Apple AirPrint and Google Cloud Print.
 
-At the moment it seems to be working. Only Google Local Print is supported until I can figure out how to allow users to generate config for GCP.
+At the moment it seems to be working. Only Google Local Print is supported until I can figure out how to allow users to generate config for GCP. If you have a config file, you can store this in the root of your config folder as ```gcp-cups-connector.config.json``` and it'll automatically be used.
 
 ## Usage
 * Configure mappings:
